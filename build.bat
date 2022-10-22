@@ -10,6 +10,6 @@ exit
 set pip="C:/Users/%Username%/Appdata/local/Programs/Python/Python310/Scripts/pip" 
 %pip% install pyinstaller
 %pip% install requests
-pyinstaller -F -w -i icon.ico --add-data="icon.ico;." main.py
+pyinstaller -F -w -i icon.ico --clean --add-data="icon.ico;." main.py
 echo done.
 pause
