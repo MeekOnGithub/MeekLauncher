@@ -70,6 +70,7 @@ def main():
     root.geometry('400x300')
     root.title('First Minecraft Launcher')
     root.resizable(0, 0)
+    root.iconbitmap(os.path.dirname(__file__)+"/icon.ico")
 
     notebook = tk.ttk.Notebook(root)
 
