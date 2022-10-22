@@ -8,4 +8,4 @@ Currently only for Windows x86-64 platforms.Some features are also available for
 Multi-platform support will be made as the technology matures.
 
 #### How to pack the program
-Make sure that all the packages are installed, run build.bat.
+Make sure that all the packages are installed, run *build.bat*.
