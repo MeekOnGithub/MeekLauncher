@@ -6,10 +6,14 @@ import core.config
 import core.launch
 import core.Muiti
 import core.versions
+import tkinter.filedialog
 
 
 def main():
     def start():
+        """
+        This function is used to launch a game,
+        """
         conf = core.config.read()
         command = core.launch.launch(conf[".mc"], version.get(), conf["java"], conf["playername"])
         print(command)
@@ -21,16 +25,43 @@ def main():
             os.system(command)
 
     def downmc():
+        """
+        This function is used to download a game.
+        """
         dotmc = core.config.read()[".mc"]
 
         core.Muiti.download(versions.get(versions.curselection()), versions.get(versions.curselection()), dotmc)
         print("Ok")
 
     def conf():
+        # simple write config
         core.config.write(name.get(), dotmc.get(), java.get(), memory.get())
 
     def drop():
+        # refresh version choose
         version["values"] = core.versions.local_version(core.config.read()[".mc"])
+
+    def refresh():
+        java.delete(0, "end")
+        java.insert(0, core.config.read()["java"])
+        dotmc.delete(0, "end")
+        dotmc.insert(0, core.config.read()[".mc"])
+        name.delete(0, "end")
+        name.insert(0, core.config.read()["playername"])
+        memory.delete(0, "end")
+        memory.insert(0, core.config.read()["ram"])
+
+    def choosefile():
+        jpath = tk.filedialog.askopenfilenames(filetypes=[('java/javaw程序', '.exe')])
+        if jpath:
+            java.delete(0, "end")
+            java.insert(0, '"' + jpath[0] + '"')
+
+    def choosefolder():
+        dpath = tk.filedialog.askdirectory()
+        if dpath:
+            dotmc.delete(0, "end")
+            dotmc.insert(0, dpath)
 
     root = tk.Tk()
     root.geometry('400x300')
@@ -64,14 +95,14 @@ def main():
     tk.Label(frame3, text="java/javaw.exe: ").place(x=0, y=5)
     java = tk.ttk.Entry(frame3, show=None)
     java.place(x=90, y=5, width=200)
-    btn_choosejava = tk.ttk.Button(frame3, text="Browse...")
+    btn_choosejava = tk.ttk.Button(frame3, text="Browse...", command=choosefile)
     btn_choosejava.place(x=290, y=5)
 
     # minecraft路径模块
     tk.Label(frame3, text=".minecraft: ").place(x=0, y=30)
     dotmc = tk.ttk.Entry(frame3, show=None)
     dotmc.place(x=90, y=30, width=200)
-    btn_choosejava = tk.ttk.Button(frame3, text="Browse...")
+    btn_choosejava = tk.ttk.Button(frame3, text="Browse...", command=choosefolder)
     btn_choosejava.place(x=290, y=30)
 
     # 玩家名模块
@@ -84,22 +115,27 @@ def main():
     memory = tk.ttk.Entry(frame3, show=None)
     memory.place(x=90, y=80, width=200)
 
-    btn_ok = tk.ttk.Button(frame3, text="OK", command=conf)
+    btn_ok = tk.ttk.Button(frame3, text="Save", command=conf)
+    btn_undo = tk.ttk.Button(frame3, text="Refresh", command=refresh)
 
-    btn_ok.place(x=160, y=180, width=40)
+    btn_undo.place(x=100, y=180, width=80)
+    btn_ok.place(x=180, y=180, width=80)
 
     # About page #
-    frame4 = tk.ttk.Frame()
-    about = tk.ttk.Label(frame4,
-                         text="First Minecraft Launcher(FMCL) written by Sharll.\nDo not decompile and edit the code!",
+    About_page = tk.ttk.Frame()
+    about = tk.ttk.Label(About_page,
+                         text="First Minecraft Launcher(FMCL) written by Sharll.\n"
+                              "Do not decompile and edit the code!",
                          font=("Arial", 12))
     about.place(x=5, y=5)
 
     notebook.add(frame1, text='Launch')
     notebook.add(frame2, text='Download')
     notebook.add(frame3, text='Settings')
-    notebook.add(frame4, text='About')
+    notebook.add(About_page, text='About')
 
     notebook.pack(padx=10, pady=5, fill=tkinter.BOTH, expand=True)
+
+    refresh()
 
     root.mainloop()
