@@ -10,6 +10,6 @@ exit
 set pip="C:/Users/%Username%/Appdata/local/Programs/Python/Python310/Scripts/pip" 
 %pip% install pyinstaller
 %pip% install requests
-pyinstaller -F -w basic.py
+pyinstaller -F -w main.py
 echo done.
 pause
