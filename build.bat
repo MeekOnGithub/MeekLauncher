@@ -1,7 +1,7 @@
 @echo off
 color 8e
 echo Welcome to FMCL build batchfile by Sharll. Pack by pyinstaller.
-set /p continue=Build must install pyinstaller and requests. Would you like to install?(y/n)
+set /p continue=Pack must install pyinstaller and requests. Main.spec and all the things in ~/dist and ~/build will be deleted! Would you like to install?(y/n)
 if not %continue%==y (
 echo Because you decide not to install, the program must be quit.
 pause
