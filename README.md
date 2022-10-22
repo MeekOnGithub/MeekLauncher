@@ -13,3 +13,4 @@ Multi-platform support will be made as the technology matures.
 #### How to pack the program
 1. Install Python 3.10.X on [https://www.python.org/](https://www.python.org/)
 2. Make sure that all the packages are installed, run **build.bat**.
+## Pack must install pyinstaller and requests. All the things in ~/dist and ~/build will be delete!
