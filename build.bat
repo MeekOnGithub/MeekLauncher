@@ -7,9 +7,10 @@ echo Because you decide not to install, the program must be quit.
 pause
 exit
 )
+rd /s /q build
 set pip="C:/Users/%Username%/Appdata/local/Programs/Python/Python310/Scripts/pip" 
 %pip% install pyinstaller
 %pip% install requests
-pyinstaller -F -w -i icon.ico --clean --add-data="icon.ico;." main.py
+pyinstaller -F -w -i icon.ico --clean --add-data="icon.ico;." --distpath . main.py
 echo done.
 pause
