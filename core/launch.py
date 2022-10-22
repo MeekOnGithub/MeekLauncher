@@ -1,5 +1,8 @@
 import json
 import os
+import zipfile
+
+import core.mkdir
 
 
 def getoptions(js: str):
@@ -27,7 +30,14 @@ def launch(game_directory: str = ".minecraft", version_name: str = None, java: s
             f"{game_directory}/versions/{version_name}/{version_name}.json")):
         return 1
     ver_json = json.load(open(f"{game_directory}\\versions\\{version_name}\\{version_name}.json"))
-    temp = f"{java} -Dfile.encoding=utf-8 -Dminecraft.client.jar={game_directory}\\versions\\{version_name}\\{version_name}.jar -Djava.library.path={game_directory}\\versions\\{version_name}\\natives-windows-x86_64 -cp "
+    temp = f"{java} -Dfile.encoding=utf-8 -Dminecraft.client.jar={game_directory}\\versions\\{version_name}\\{version_name}.jar " \
+           f"-Djava.library.path={game_directory}\\versions\\{version_name}\\natives-windows-x86_64 " \
+           f"-XX:+UnlockExperimentalVMOptions -XX:+UseG1GC -XX:G1NewSizePercent=20 -XX:-DontCompileHugeMethods " \
+           f"-XX:G1ReservePercent=20 -XX:G1HeapRegionSize=16m -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow " \
+           f"-Dfml.ignoreInvalidMinecraftCertificates=true -Dfml.ignorePatchDiscrepancies=true -Djava.rmi.server.useCodebaseOnly=true " \
+           f"-Dcom.sun.jndi.rmi.object.trustURLCodebase=false -Dcom.sun.jndi.cosnaming.object.trustURLCodebase=false " \
+           f"-XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump " \
+           f"-Dlog4j2.formatMsgNoLookups=true -cp "
     for i in ver_json['libraries']:
         try:
             temp += (os.path.realpath(
@@ -36,7 +46,13 @@ def launch(game_directory: str = ".minecraft", version_name: str = None, java: s
                 os.path.realpath(game_directory) + "/libraries/" + i['downloads']['artifact']['path']) + ";"))
         except KeyError:
             try:
-                print("Special: ", i['downloads']['classifiers'])
+                print("Special: ", i['downloads']['classifiers']['natives-windows']['path'])
+                jar = os.path.realpath(os.path.realpath(game_directory) + "/libraries/" + i['downloads']['classifiers']['natives-windows']['path'])
+                core.mkdir.make_long_dir(os.path.realpath(f'{os.path.realpath(game_directory)}/versions/{version_name}/natives-windows-x86_64'))
+                zip_file = zipfile.ZipFile(jar)
+                for names in zip_file.namelist():
+                    zip_file.extract(names, os.path.realpath(f'{os.path.realpath(game_directory)}/versions/{version_name}/natives-windows-x86_64'))
+
             except KeyError:
                 name = i["name"].split(":")  # <package>:<name>:<version>
                 tmp = ""

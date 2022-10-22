@@ -17,6 +17,9 @@ def get_ver_jar_url(version: str):
 
 
 def get_task(version_name: str, version: str, mcpath: str, useBMCLAPI: bool):
+    global paths, urls
+    paths = []
+    urls = []
     if useBMCLAPI:
         assets = "https://bmclapi2.bangbang93.com/assets"
         libraries = "https://bmclapi2.bangbang93.com/maven"
@@ -54,7 +57,10 @@ def get_task(version_name: str, version: str, mcpath: str, useBMCLAPI: bool):
             paths.append(f"{mcpath}/libraries/{i['downloads']['artifact']['path']}")
         except KeyError:
             try:
-                print("Special:", i["downloads"]["classifiers"]['natives-windows']["url"])
+                print("Special native!")
+                urls.append(i["downloads"]["classifiers"]["natives-windows"]["url"])
+                paths.append(f'{mcpath}/libraries/{i["downloads"]["classifiers"]["natives-windows"]["path"]}')
+
             except KeyError:
                 print("Sprcial:", i)
 
@@ -69,6 +75,13 @@ def get_task(version_name: str, version: str, mcpath: str, useBMCLAPI: bool):
         now_hash = index_json["objects"][i]["hash"]
         urls.append(f"{assets}/{now_hash[0:2]}/{now_hash}")
         paths.append(f"{mcpath}/assets/objects/{now_hash[0:2]}/{now_hash}")
+
+    print("5 Download log4j2.xml file")
+    core.mkdir.make_long_dir(f"{mcpath}\\versions\\{version_name}")
+    urls.append(ver_json["logging"]["client"]["file"]["url"])
+    paths.append(f"{mcpath}\\versions\\{version_name}\\log4j2.xml")
+
+    print("6 Download natives jar")
 
 
 def multprocessing_task(tasks: list, function, cores: int, join: bool = True):
@@ -95,10 +108,10 @@ def multprocessing_task(tasks: list, function, cores: int, join: bool = True):
 def download_one(i):
     url = i[0]
     path = i[1]
-    print(f"Downloading {url}")
+    print(f"Downloading {url} to {path}")
     core.mkdir.make_long_dir(os.path.dirname(path))
     open(os.path.realpath(path), "wb").write(requests.get(url).content)
-    print(f"Download {url} done.")
+    print(f"Download {url} to {path} done.")
 
 
 def download(ver_name: str, version: str, mcpath: str):
@@ -106,4 +119,4 @@ def download(ver_name: str, version: str, mcpath: str):
     tasks = []
     for i in range(len(urls)):
         tasks.append((urls[i], paths[i]))
-    multprocessing_task(tasks, download_one, 100)
+    multprocessing_task(tasks, download_one, 100, True)
