@@ -3,6 +3,8 @@
 #### About
 A simple minecraft launcher(Java Edition) wriiten by Python 3.10.
 
+### Please notice that this launcher do not work with regular .minecraft folder.
+
 It is a cracked launcher.
 
 #### Platform support
