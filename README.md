@@ -16,3 +16,5 @@ Multi-platform support will be made as the technology matures.
 1. Install Python 3.10.X on [https://www.python.org/](https://www.python.org/)
 2. Make sure that all the packages are installed, run **build.bat**.
 3. Find main.exe and run it.
+
+![img.png](img.png)
