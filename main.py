@@ -30,12 +30,12 @@ def main():
         """
         dotmc = core.config.read()[".mc"]
 
-        core.Muiti.download(download_as.get(), download_versions.get(), dotmc)
+        core.download.download(download_as.get(), download_versions.get(), dotmc, int(core.config.read()["threads"]))
         print("Ok")
 
     def conf():
         # simple write config
-        core.config.write(setting_playername.get(), setting_dotmc.get(), setting_java.get(), setting_ram_give.get())
+        core.config.write(setting_playername.get(), setting_dotmc.get(), setting_java.get(), setting_ram_give.get(), int(setting_threads.get()))
 
     def drop():
         # refresh version choose
@@ -50,6 +50,8 @@ def main():
         setting_playername.insert(0, core.config.read()["playername"])
         setting_ram_give.delete(0, "end")
         setting_ram_give.insert(0, core.config.read()["ram"])
+        setting_threads.delete(0, "end")
+        setting_threads.insert(0, core.config.read()["threads"])
 
     def choosefile():
         jpath = tk.filedialog.askopenfilenames(filetypes=[('java/javaw程序', '.exe')])
@@ -110,14 +112,14 @@ def main():
     setting_java = tk.ttk.Entry(setting_view, show=None)
     setting_java.place(x=90, y=5, width=200)
     setting_choose_dmc_button = tk.ttk.Button(setting_view, text="Browse...", command=choosefile)
-    setting_choose_dmc_button.place(x=290, y=5)
+    setting_choose_dmc_button.place(x=290, y=2)
 
     # minecraft路径模块
     tk.Label(setting_view, text=".minecraft: ").place(x=0, y=30)
     setting_dotmc = tk.ttk.Entry(setting_view, show=None)
     setting_dotmc.place(x=90, y=30, width=200)
     setting_choose_dmc_button = tk.ttk.Button(setting_view, text="Browse...", command=choosefolder)
-    setting_choose_dmc_button.place(x=290, y=30)
+    setting_choose_dmc_button.place(x=290, y=27)
 
     # 玩家名模块
     tk.Label(setting_view, text="playername:").place(x=0, y=55)
@@ -128,6 +130,10 @@ def main():
     tk.Label(setting_view, text="RAM given:").place(x=0, y=80)
     setting_ram_give = tk.ttk.Entry(setting_view, show=None)
     setting_ram_give.place(x=90, y=80, width=200)
+
+    tk.Label(setting_view, text="Download threads max count:").place(x=0, y=105)
+    setting_threads = tk.ttk.Entry(setting_view, show=None)
+    setting_threads.place(x=180, y=105, width=105)
 
     setting_save_button = tk.ttk.Button(setting_view, text="Save", command=conf)
     setting_refresh_button = tk.ttk.Button(setting_view, text="Refresh", command=refresh)
