@@ -17,4 +17,4 @@ Multi-platform support will be made as the technology matures.
 2. Make sure that all the packages are installed, run **build.bat**.
 3. Find main.exe and run it.
 
-![view/img.png](view/img.png)
+![Launcher_main.png](Launcher_main.png)
