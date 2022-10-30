@@ -116,12 +116,12 @@ def download_one(i):
     print(f"Download {url} to {path} done.")
 
 
-def download(ver_name: str, version: str, mcpath: str):
+def download(ver_name: str, version: str, mcpath: str, threads: int):
     get_task(ver_name, version, mcpath, False)
     tasks = []
     for i in range(len(urls)):
         tasks.append((urls[i], paths[i]))
-    multprocessing_task(tasks, download_one, 100, True)
+    multprocessing_task(tasks, download_one, threads, True)
     print("6 Unzip natives(dll)")
     for i in nativesjar:
         jar = os.path.realpath(i)
