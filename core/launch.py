@@ -50,31 +50,25 @@ def launch(game_directory: str = ".minecraft", version_name: str = None, java: s
         except KeyError:
             try:
                 print("Special: ", i['downloads']['classifiers']['natives-windows']['path'])
-                jar = os.path.realpath(
-                    os.path.realpath(game_directory) + "/libraries/" + i['downloads']['classifiers']['natives-windows'][
-                        'path'])
-                core.mkdir.make_long_dir(os.path.realpath(
-                    f'{os.path.realpath(game_directory)}/versions/{version_name}/natives-windows-x86_64'))
-                zip_file = zipfile.ZipFile(jar)
-                for names in zip_file.namelist():
-                    zip_file.extract(names, os.path.realpath(
-                        f'{os.path.realpath(game_directory)}/versions/{version_name}/natives-windows-x86_64'))
-
             except KeyError:
-                name = i["name"].split(":")  # <package>:<name>:<version>
-                tmp = ""
-                for j in name[0]:
-                    if j == ".":
-                        tmp += "/"
-                    else:
-                        tmp += j
-                name[0] = tmp
-                if not os.path.realpath(
-                        os.path.realpath(game_directory) + "/libraries/" + i['downloads']['artifact']['path']) in cps:
-                    cps.append(os.path.realpath(
-                        f"{os.path.realpath(game_directory)}\\libraries\\{name[0]}\\{name[1]}\\{name[2]}\\{name[1]}-{name[2]}.jar;"))  # <package>/<name>/<version>/<name>-<version>.jar
-                    print(os.path.realpath(
-                        f"{os.path.realpath(game_directory)}\\libraries\\{name[0]}\\{name[1]}\\{name[2]}\\{name[1]}-{name[2]}.jar;"))
+                try:
+                    print(i)
+                    name = i["name"].split(":")  # <package>:<name>:<version>
+                    tmp = ""
+                    for j in name[0]:
+                        if j == ".":
+                            tmp += "/"
+                        else:
+                            tmp += j
+                    name[0] = tmp
+                    if not os.path.realpath(os.path.realpath(game_directory) + "/libraries/" + i['downloads']['artifact']['path']) in cps:
+                        cps.append(os.path.realpath(
+                            f"{os.path.realpath(game_directory)}\\libraries\\{name[0]}\\{name[1]}\\{name[2]}\\{name[1]}-{name[2]}.jar;"))  # <package>/<name>/<version>/<name>-<version>.jar
+                        print(os.path.realpath(
+                            f"{os.path.realpath(game_directory)}\\libraries\\{name[0]}\\{name[1]}\\{name[2]}\\{name[1]}-{name[2]}.jar;"))
+                except KeyError:
+                    print("pass!")
+                    pass
 
     assets_root = os.path.abspath(game_directory + "\\assets")
     assets_index_name = ver_json["assetIndex"]["id"]
@@ -84,6 +78,8 @@ def launch(game_directory: str = ".minecraft", version_name: str = None, java: s
     version_type = '"First Minecraft Launcher Demo"'
     user_properties = "{}"
     auth_session = "{}"
+    clientid = "0"
+    auth_xuid = "0"
 
     cp = ""
     for i in cps:
