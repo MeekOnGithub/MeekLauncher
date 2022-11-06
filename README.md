@@ -8,9 +8,8 @@ A simple minecraft launcher(Java Edition) wriiten by Python 3.10.
 It is a cracked launcher.
 
 #### Platform support
-Currently only for Windows x86-64 platforms.Some features are also available for Windows x86.
-
-Multi-platform support will be made as the technology matures.
+Multi-platform support is nearly done!
+I do not have Apple Computers, so I want a helper to help me to test it.
 
 #### How to pack the program
 1. Install Python 3.10.X on [https://www.python.org/](https://www.python.org/)
