@@ -17,3 +17,12 @@ I do not have Apple Computers, so I want a helper to help me to test it.
 3. Find main.exe and run it.
 
 ![view/Launcher_main.png](view/Launcher_main.png)
+
+#### Coding targets
+1. Make stable launching core(Done)
+2. Make stable downloading core
+3. Make Forge/ Fabric/ Optifine/ Quilt auto-install
+4. Microsoft account auth
+5. Logging
+6. Better UI(Download info, Launching info, Error info)
+7. Resolve not responding problem
