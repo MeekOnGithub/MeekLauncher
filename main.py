@@ -15,14 +15,16 @@ def main():
         """
         This function is used to launch a game,
         """
-        command = core.launch.launch(core.config.read()[".mc"], launch_version.get(), core.config.read()["java"], core.config.read()["playername"])
+        command = core.launch.launch(core.config.read()[".mc"], launch_version.get(), core.config.read()["java"],
+                                     core.config.read()["playername"])
         print(command)
         if command == 0:
             tk.messagebox.showerror("Null.")
         elif command == 1:
-            tk.messagebox.showerror("Launch Failed!", "This version is not complete.")
+            tk.messagebox.showerror("Error", "This is not a complete game.")
         else:
-            os.system(command)
+            if os.system(command) != 0:
+                tk.messagebox.showerror("Error", "Unable to launch. \nPlease upload the logs to issue.")
 
     def downmc():
         """
@@ -35,7 +37,8 @@ def main():
 
     def conf():
         # simple write config
-        core.config.write(setting_playername.get(), setting_dotmc.get(), setting_java.get(), setting_ram_give.get(), int(setting_threads.get()))
+        core.config.write(setting_playername.get(), setting_dotmc.get(), setting_java.get(), setting_ram_give.get(),
+                          int(setting_threads.get()))
 
     def drop():
         # refresh version choose
@@ -76,7 +79,7 @@ def main():
     root.geometry('400x300')
     root.title('First Minecraft Launcher')
     root.resizable(0, 0)
-    root.iconbitmap(os.path.dirname(__file__)+"/icon.ico")
+    root.iconbitmap(os.path.dirname(__file__) + "/icon.ico")
 
     notebook = tk.ttk.Notebook(root)
 
@@ -160,6 +163,8 @@ def main():
 
     root.mainloop()
 
+
+# print(os.popen("a").errors)
 
 if __name__ == "__main__":
     make = core.mkdir.Files()
