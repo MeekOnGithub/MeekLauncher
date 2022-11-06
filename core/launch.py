@@ -12,8 +12,6 @@ def gethighoptions(js: list):
     for i in js:
         if type(i) == str:
             temp += getoptions(i) + " "
-        else:
-            break
     return temp
 
 
@@ -65,10 +63,16 @@ def launch(game_directory: str = ".minecraft", version_name: str = None, java: s
     for i in cps:
         cp += i + ';'
 
-    try:
-        return f'{temp} {cp}{os.path.realpath(f"{game_directory}/versions/{version_name}/{version_name}.jar")} {ver_json["mainClass"]} ' + eval(
-            "f'" + getoptions(ver_json["minecraftArguments"] + "'"))
-    except KeyError:
+    temp1 = ""
+    temp2 = ""
 
-        return f'{temp} {cp}{os.path.realpath(f"{game_directory}/versions/{version_name}/{version_name}.jar")} {ver_json["mainClass"]} ' + eval(
-            'f"' + gethighoptions(ver_json["arguments"]["game"]) + '"')
+    print(ver_json.keys())
+    if "minecraftArguments" in ver_json:
+        temp1 = eval("f'" + getoptions(ver_json["minecraftArguments"]) + "'")
+        print(temp1)
+
+    if "arguments" in ver_json and "game" in ver_json["arguments"]:
+        temp2 = eval("f'" + gethighoptions(ver_json["arguments"]["game"]) + "'")
+        print(ver_json["arguments"]["game"])
+
+    return f'{temp} {cp}{os.path.realpath(f"{game_directory}/versions/{version_name}/{version_name}.jar")} {ver_json["mainClass"]} {temp1} {temp2}'
