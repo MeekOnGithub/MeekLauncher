@@ -84,7 +84,7 @@ def multprocessing_task(tasks: list, function, cores: int, join: bool = True):
             try:
                 task = tasks.pop(0)
                 function(task)
-            except Exception:
+            except threading.ExceptHookArgs:
                 break
 
     for i in range(cores + 1):

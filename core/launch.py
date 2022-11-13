@@ -84,6 +84,7 @@ def launch(game_directory: str = ".minecraft", version_name: str = None, java: s
     cp = ""
     for i in cps:
         cp += i + split[core.system.system()]
+    cp += jarpath
 
     args = ""
 
@@ -102,4 +103,4 @@ def launch(game_directory: str = ".minecraft", version_name: str = None, java: s
         if i in args:
             args = args.replace(i, arg[i])
 
-    return f'{temp} {cp}{jarpath} {ver_json["mainClass"]} {args}'
+    return f'{temp} {cp} {ver_json["mainClass"]} {args}'
