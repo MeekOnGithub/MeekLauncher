@@ -2,6 +2,7 @@ import tkinter as tk
 import tkinter.ttk
 import tkinter.filedialog
 import core.config
+import core.versions
 
 
 def main():
@@ -36,10 +37,13 @@ def main():
             setting_dotmc.delete(0, "end")
             setting_dotmc.insert(0, dpath)
 
+    def javascan():
+        setting_java["values"] = core.versions.java_versions()
+
     # Setting page #
     setting_view = tk.ttk.Frame()
     tk.Label(setting_view, text="java/javaw.exe: ").place(x=0, y=5)
-    setting_java = tk.ttk.Entry(setting_view, show=None)
+    setting_java = tk.ttk.Combobox(setting_view, show=None, postcommand=javascan)
     setting_java.place(x=90, y=5, width=200)
     setting_choose_dmc_button = tk.ttk.Button(setting_view, text="Browse...", command=choosefile)
     setting_choose_dmc_button.place(x=290, y=2)
