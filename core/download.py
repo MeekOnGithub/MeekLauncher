@@ -4,6 +4,7 @@ import os.path
 import threading
 import zipfile
 import tkinter.messagebox
+import core.system
 
 import requests
 
@@ -46,12 +47,11 @@ def get_task(version_name: str, version: str, mcpath: str):
     # natives
     for i in ver_json["libraries"]:
 
-
         if "artifact" in i["downloads"]:
             urls.append(i["downloads"]["artifact"]["url"])
             paths.append(f'{mcpath}/libraries/{i["downloads"]["artifact"]["path"]}')
 
-        if ("classifiers" in i["downloads"]) and "natives-windows" in i["downloads"]["classifiers"]:
+        if ("classifiers" in i["downloads"]) and "natives-"+core.system.system() in i["downloads"]["classifiers"]:
             print(i)
             urls.append(i["downloads"]["classifiers"]["natives-windows"]["url"])
             paths.append(f'{mcpath}/libraries/{i["downloads"]["classifiers"]["natives-windows"]["path"]}')

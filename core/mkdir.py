@@ -17,24 +17,6 @@ def make_long_dir(path_: str):
     del path__
 
 
-class Files(object):
-    def __init__(self):
-        self.path = None
-
-    def make_mc_dir(self, fpath):
-        fpath = os.path.abspath(fpath)
-        paths = {".minecraft": {"assets": {"indexes": {}, "log_configs": {}},
-                                "bin": {"native": {}},
-                                "libraries": {},
-                                "versions": {}}}
-        self._make_mc_dir(fpath, paths)
-        self.path = fpath + "/.minecraft"
-        del paths
-        del fpath
-
-    def _make_mc_dir(self, path_, d):
-        for i in d.keys():
-            make_dir(path_ + "/" + i)
-            self._make_mc_dir(path_ + "/" + i, d[i])
-
-
+def make_mc_dir(path: str):
+    make_long_dir(path)
+    make_long_dir(os.path.join(path, "versions"))
