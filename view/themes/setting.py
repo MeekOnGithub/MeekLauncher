@@ -45,8 +45,8 @@ def main():
     tk.Label(setting_view, text="java/javaw.exe: ").place(x=0, y=5)
     setting_java = tk.ttk.Combobox(setting_view, show=None, postcommand=javascan)
     setting_java.place(x=90, y=5, width=200)
-    setting_choose_dmc_button = tk.ttk.Button(setting_view, text="Browse...", command=choosefile)
-    setting_choose_dmc_button.place(x=290, y=2)
+    setting_choose_java_button = tk.ttk.Button(setting_view, text="Browse...", command=choosefile)
+    setting_choose_java_button.place(x=290, y=2)
 
     # minecraft路径模块
     tk.Label(setting_view, text=".minecraft: ").place(x=0, y=30)
