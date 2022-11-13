@@ -9,10 +9,10 @@ def add(o):
     return o
 
 
-def get_version_list(version_type: str):
+def get_version_list(version_type: list):
     versions = []
     for i in requests.get("https://bmclapi2.bangbang93.com/mc/game/version_manifest.json").json()['versions']:
-        if i["type"] == version_type:
+        if i["type"] in version_type:
             versions.append(i["id"])
     return versions
 
@@ -41,4 +41,3 @@ def java_versions():
     return versions
 
 
-print(java_versions())
