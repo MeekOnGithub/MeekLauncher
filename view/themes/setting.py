@@ -6,7 +6,7 @@ import core.versions
 
 
 def main():
-    print("load setting page")
+    print(__file__+": load setting page")
 
     def conf():
         # simple write config

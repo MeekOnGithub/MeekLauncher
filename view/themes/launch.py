@@ -8,7 +8,7 @@ import tkinter.ttk
 
 
 def main():
-    print("load launch page")
+    print(__file__+": load launch page")
 
     def start():
         """

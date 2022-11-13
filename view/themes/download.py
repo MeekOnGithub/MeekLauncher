@@ -6,7 +6,7 @@ import core.versions
 
 
 def main():
-    print("load download page")
+    print(__file__+": load download page")
 
     def downmc():
         dotmc = core.config.read()[".mc"]
