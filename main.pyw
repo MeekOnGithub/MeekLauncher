@@ -1,10 +1,10 @@
-import core.mkdir
-import view.core
-import core.config
+import Core.System.CoreMakeFolderTask
+import View.core
+import Core.System.CoreConfigIO
 import os
 
 if __name__ == "__main__":
     if not os.path.exists("config.json"):
-        core.config.write()
-    core.mkdir.make_mc_dir(core.config.read()[".mc"])
-    view.core.main()
+        Core.System.CoreConfigIO.write()
+    Core.System.CoreMakeFolderTask.make_mc_dir(Core.System.CoreConfigIO.read()[".mc"])
+    View.core.main()
