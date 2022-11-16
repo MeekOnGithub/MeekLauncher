@@ -9,9 +9,9 @@ echo Can not find pip or python 3.10.
 echo Warning: Python which are not 3.10 may cause some question.
 set /p pip=Input your own pip path: 
 )
+pause
 cls
 
-pause
 echo Update pip.
 %pip% install --upgrade pip
 cls
