@@ -3,6 +3,7 @@ import tkinter as tk
 import tkinter.filedialog
 import tkinter.messagebox
 import tkinter.ttk
+import tkinter.font
 
 import View.Themes.DownloadPage
 import View.Themes.LaunchPage
@@ -17,11 +18,12 @@ def main():
     root.geometry('400x300')
     root.title('First Minecraft Launcher')
     root.resizable(0, 0)
-    root.iconbitmap(os.path.join(os.path.dirname(__file__), "icon.ico"))
+    root.iconbitmap(os.path.join(os.path.dirname(__file__), "Resources", "icon.ico"))
 
     notebook = tk.ttk.Notebook(root)
 
-    notebook.add(View.Themes.LaunchPage.main(), text='Launch')
+    img1 = tk.PhotoImage(file=os.path.join(os.path.dirname(__file__), "Resources", "Launch.png"))
+    notebook.add(View.Themes.LaunchPage.main(), text='Launch', image=img1, compound="left")
     notebook.add(View.Themes.DownloadPage.main(), text='Download')
     notebook.add(View.Themes.SettingPage.main(), text='Settings')
     notebook.add(View.Themes.AccountManagePage.main(), text="Accounts")
